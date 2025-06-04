@@ -274,6 +274,9 @@
   "skyblocker.config.general.hitbox.oldLeverHitbox": "Enable 1.8 lever hitbox",
   "skyblocker.config.general.hitbox.oldMushroomHitbox": "Enable 1.8 mushroom hitbox",
 
+  "skyblocker.config.general.itemcooldowns": "Item Cooldowns",
+  "skyblocker.config.general.itemcooldowns.riftUbixCooldown": "Enable Rift Ubix Cooldown",
+
   "skyblocker.config.general.itemInfoDisplay": "Item Info Display",
   "skyblocker.config.general.itemInfoDisplay.itemBackgroundStyle": "Item Background Overlay Style",
   "skyblocker.config.general.itemInfoDisplay.itemBackgroundStyle.@Tooltip": "Choose between a circular or a square background style!",

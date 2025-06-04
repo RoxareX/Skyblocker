@@ -53,6 +53,9 @@ public class GeneralConfig {
     public Hitbox hitbox = new Hitbox();
 
     @SerialEntry
+    public ItemCooldowns itemcooldowns = new ItemCooldowns();
+
+    @SerialEntry
     public List<Integer> lockedSlots = new ArrayList<>();
 
     //maybe put this 5 somewhere else
@@ -275,4 +278,8 @@ public class GeneralConfig {
 		public boolean oldMushroomHitbox = false;
     }
 
+	public static class ItemCooldowns {
+		@SerialEntry
+		public boolean riftUbixCooldown = true;
+	}
 }

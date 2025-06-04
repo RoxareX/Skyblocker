@@ -414,6 +414,18 @@ public class GeneralCategory {
 								.build())
 						.build())
 
+				//Item Cooldowns
+				.group(OptionGroup.createBuilder()
+						.name(Text.translatable("skyblocker.config.general.itemcooldowns"))
+						.collapsed(true)
+						.option(Option.<Boolean>createBuilder()
+								.name(Text.translatable("skyblocker.config.general.itemcooldowns.riftUbixCooldown"))
+								.binding(defaults.general.itemcooldowns.riftUbixCooldown,
+										() -> config.general.itemcooldowns.riftUbixCooldown,
+										newValue -> config.general.itemcooldowns.riftUbixCooldown = newValue)
+								.controller(ConfigUtils::createBooleanController)
+								.build())
+						.build())
 				.build();
 	}
 }
