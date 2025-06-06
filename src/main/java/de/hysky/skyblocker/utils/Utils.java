@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.Collections;
+import java.util.OptionalInt;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -157,9 +158,13 @@ public class Utils {
         return location == Location.CRIMSON_ISLE;
     }
 
-    public static boolean isInModernForagingIsland() {
-        return location == Location.MODERN_FORAGING_ISLAND;
+    public static boolean isInGalatea() {
+        return location == Location.GALATEA;
     }
+
+	public static boolean isOnBingo() {
+		return profile.endsWith("Ⓑ");
+	}
 
     /**
      * @return the profile parsed from the player list.
@@ -586,5 +591,19 @@ public class Utils {
 		MinecraftClient client = MinecraftClient.getInstance();
 		// Null check on client for tests
 		return client != null && client.getNetworkHandler() != null && client.getNetworkHandler().getRegistryManager() != null ? client.getNetworkHandler().getRegistryManager() : LOOKUP;
+	}
+
+	/**
+	 * Parses an int from a string
+	 * @param input the string to parse
+	 * @return the int parsed or an empty optional if it failed
+	 * @implNote Does not log the exception if thrown
+	 */
+	public static OptionalInt parseInt(String input) {
+		try {
+			return OptionalInt.of(Integer.parseInt(input));
+		} catch (NumberFormatException e) {
+			return OptionalInt.empty();
+		}
 	}
 }
