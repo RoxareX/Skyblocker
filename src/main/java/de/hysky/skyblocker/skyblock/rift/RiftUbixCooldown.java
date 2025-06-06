@@ -12,7 +12,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -29,7 +28,7 @@ public class RiftUbixCooldown {
 	private static boolean ubixUsed = false; // Track if the Ubix was used
 
 	private static final Pattern SPLIT_COOLDOWN_PATTERN = Pattern.compile(
-			"SPLIT! You need to wait (\\d+)h (\\d+)m (\\d+)s before you can play again\\."
+			"SPLIT! You need to wait (?:(\\d+)h )?(?:(\\d+)m )?(?:(\\d+)s) before you can play again\\."
 	);
 	private static final Pattern PLAYER_MOTES_PATTERN = Pattern.compile("You earned \\d{1,3}(,\\d{3})* Motes in this match!");
 	private static final Pattern OPPONENT_MOTES_PATTERN = Pattern.compile("Your opponent earned \\d{1,3}(,\\d{3})* Motes in this match!");
@@ -48,15 +47,16 @@ public class RiftUbixCooldown {
 		});
 
 		// Listen for chat messages
-		ClientReceiveMessageEvents.CHAT.register((message, signedMessage, sender, params, receptionTimestamp) -> {
+		ClientReceiveMessageEvents.GAME.register((message, bool) -> {
 			String msg = message.getString();
 
 			// Match result messages
 			if (PLAYER_MOTES_PATTERN.matcher(msg).find() ||
 					OPPONENT_MOTES_PATTERN.matcher(msg).find()) {
+//					client.inGameHud.getChatHud().addMessage(Text.literal("[DEBUG] Match result found."));
 				if (ubixUsed) {
 					ubixUsed = false;
-					client.inGameHud.getChatHud().addMessage(Text.literal("[DEBUG] Ubix was used, setting cooldown timer."));
+//					client.inGameHud.getChatHud().addMessage(Text.literal("[DEBUG] Ubix was used, setting cooldown timer."));
 					ubixUsedAt = (int) (getCurrentRealTimeMillis() / 1000);
 				}
 			}
@@ -66,13 +66,11 @@ public class RiftUbixCooldown {
 			if (matcher.find()) {
 				if (ubixUsed) {
 					ubixUsed = false;
-
-					int hours = Integer.parseInt(matcher.group(1));
-					int minutes = Integer.parseInt(matcher.group(2));
-					int seconds = Integer.parseInt(matcher.group(3));
+					int hours = matcher.group(1) != null ? Integer.parseInt(matcher.group(1)) : 0;
+					int minutes = matcher.group(2) != null ? Integer.parseInt(matcher.group(2)) : 0;
+					int seconds = matcher.group(3) != null ? Integer.parseInt(matcher.group(3)) : 0;
 					int totalSeconds = hours * 3600 + minutes * 60 + seconds;
-					ubixUsedAt = (int) (getCurrentRealTimeMillis() / 1000) - (2 * 60 * 60 - totalSeconds); // 2h = 7200s
-					client.inGameHud.getChatHud().addMessage(Text.literal("[DEBUG] SPLIT! cooldown detected, set remaining: " + totalSeconds + "s"));
+					ubixUsedAt = (int) (getCurrentRealTimeMillis() / 1000) - (2 * 60 * 60 - totalSeconds);
 				}
 			}
 		});
@@ -98,12 +96,13 @@ public class RiftUbixCooldown {
 			playedReadySound = false; // Reset when cooldown is active
 
 			if (remainingTime >= 3600) {
-				double hours = remainingTime / 3600.0;
-				message = String.format("Rift Ubix: %.1fh", hours);
+				int hours = remainingTime / 3600;
+				int minutes = (remainingTime % 3600) / 60;
+				message = String.format("Rift Ubix: %d h %d min", hours, minutes);
 			} else {
 				int minutes = remainingTime / 60;
 				int seconds = remainingTime % 60;
-				message = String.format("Rift Ubix: %dmin %d sec", minutes, seconds);
+				message = String.format("Rift Ubix: %d min %d sec", minutes, seconds);
 			}
 		} else {
 			message = "Rift Ubix: Ready";
