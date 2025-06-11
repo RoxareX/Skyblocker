@@ -8,6 +8,9 @@ import de.hysky.skyblocker.config.configs.GeneralConfig;
 import de.hysky.skyblocker.skyblock.item.tooltip.adders.CraftPriceTooltip;
 import de.hysky.skyblocker.skyblock.shortcut.ShortcutsConfigScreen;
 import de.hysky.skyblocker.skyblock.speedPreset.SpeedPresetsScreen;
+import de.hysky.skyblocker.skyblock.tabhud.config.WidgetsConfigurationScreen;
+import de.hysky.skyblocker.skyblock.variouscooldowns.VariousCooldownsHudWidget;
+import de.hysky.skyblocker.utils.Location;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder;
 import net.minecraft.client.MinecraftClient;
@@ -414,17 +417,37 @@ public class GeneralCategory {
 								.build())
 						.build())
 
-				//Item Cooldowns
+				//Various Cooldowns
 				.group(OptionGroup.createBuilder()
-						.name(Text.translatable("skyblocker.config.general.itemcooldowns"))
+						.name(Text.translatable("skyblocker.config.general.variouscooldowns"))
 						.collapsed(true)
 						.option(Option.<Boolean>createBuilder()
-								.name(Text.translatable("skyblocker.config.general.itemcooldowns.riftUbixCooldown"))
-								.binding(defaults.general.itemcooldowns.riftUbixCooldown,
-										() -> config.general.itemcooldowns.riftUbixCooldown,
-										newValue -> config.general.itemcooldowns.riftUbixCooldown = newValue)
+								.name(Text.translatable("skyblocker.config.general.variouscooldowns.hud.toggle"))
+								.binding(defaults.general.variouscooldowns.variousCooldownsHUD,
+										() -> config.general.variouscooldowns.variousCooldownsHUD,
+										newValue -> config.general.variouscooldowns.variousCooldownsHUD = newValue)
 								.controller(ConfigUtils::createBooleanController)
 								.build())
+						.option(Option.<Boolean>createBuilder()
+								.name(Text.translatable("skyblocker.config.general.variouscooldowns.riftUbixCooldown"))
+								.binding(defaults.general.variouscooldowns.riftUbixCooldown,
+										() -> config.general.variouscooldowns.riftUbixCooldown,
+										newValue -> config.general.variouscooldowns.riftUbixCooldown = newValue)
+								.controller(ConfigUtils::createBooleanController)
+								.build())
+						.option(Option.<Boolean>createBuilder()
+								.name(Text.translatable("skyblocker.config.general.variouscooldowns.tuneFrequencyCooldown"))
+								.binding(defaults.general.variouscooldowns.tunefrequencycooldown,
+										() -> config.general.variouscooldowns.tunefrequencycooldown,
+										newValue -> config.general.variouscooldowns.tunefrequencycooldown = newValue)
+								.controller(ConfigUtils::createBooleanController)
+								.build())
+						.option(ButtonOption.createBuilder()
+								.name(Text.translatable("skyblocker.config.general.variouscooldowns.hud.screen"))
+								.text(Text.translatable("text.skyblocker.open"))
+								.action((screen, opt) -> MinecraftClient.getInstance().setScreen(new WidgetsConfigurationScreen(Location.HUB, VariousCooldownsHudWidget.getInstance().getInternalID(), screen)))
+								.build())
+
 						.build())
 				.build();
 	}

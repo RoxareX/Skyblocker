@@ -4,6 +4,7 @@ import de.hysky.skyblocker.SkyblockerMod;
 import de.hysky.skyblocker.skyblock.item.custom.CustomArmorAnimatedDyes;
 import de.hysky.skyblocker.skyblock.item.custom.CustomArmorTrims;
 import de.hysky.skyblocker.skyblock.item.slottext.SlotTextMode;
+import de.hysky.skyblocker.utils.Location;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -53,7 +54,10 @@ public class GeneralConfig {
     public Hitbox hitbox = new Hitbox();
 
     @SerialEntry
-    public ItemCooldowns itemcooldowns = new ItemCooldowns();
+    public VariousCooldowns variouscooldowns = new VariousCooldowns();
+
+	@SerialEntry
+	public List<Location> variouscooldownsHudEnabledLocations = new ArrayList<>(List.of(Location.values()));
 
     @SerialEntry
     public List<Integer> lockedSlots = new ArrayList<>();
@@ -278,8 +282,14 @@ public class GeneralConfig {
 		public boolean oldMushroomHitbox = false;
     }
 
-	public static class ItemCooldowns {
+	public static class VariousCooldowns {
+		@SerialEntry
+		public boolean variousCooldownsHUD = true;
+
 		@SerialEntry
 		public boolean riftUbixCooldown = true;
+
+		@SerialEntry
+		public boolean tunefrequencycooldown = true;
 	}
 }

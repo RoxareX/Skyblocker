@@ -274,8 +274,11 @@
   "skyblocker.config.general.hitbox.oldLeverHitbox": "Enable 1.8 lever hitbox",
   "skyblocker.config.general.hitbox.oldMushroomHitbox": "Enable 1.8 mushroom hitbox",
 
-  "skyblocker.config.general.itemcooldowns": "Item Cooldowns",
-  "skyblocker.config.general.itemcooldowns.riftUbixCooldown": "Enable Rift Ubix Cooldown",
+  "skyblocker.config.general.variouscooldowns": "Various Cooldowns",
+  "skyblocker.config.general.variouscooldowns.hud.toggle": "Enable Various Cooldowns HUD",
+  "skyblocker.config.general.variouscooldowns.hud.screen": "Various Cooldowns HUD Config...",
+  "skyblocker.config.general.variouscooldowns.riftUbixCooldown": "Enable Rift Ubix Cooldown",
+  "skyblocker.config.general.variouscooldowns.tuneFrequencyCooldown": "Enable Tune Frequency Cooldown",
 
   "skyblocker.config.general.itemInfoDisplay": "Item Info Display",
   "skyblocker.config.general.itemInfoDisplay.itemBackgroundStyle": "Item Background Overlay Style",

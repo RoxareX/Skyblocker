@@ -85,4 +85,5 @@ public class Ico {
 	public static final ItemStack MYCELIUM = new ItemStack(Items.MYCELIUM);
 	public static final ItemStack SALMON_BUCKET = new ItemStack(Items.SALMON_BUCKET);
 	public static final ItemStack TROPICAL_FISH_BUCKET = new ItemStack(Items.TROPICAL_FISH_BUCKET);
+	public static final ItemStack BEACON = new ItemStack(Items.BEACON);
 }
